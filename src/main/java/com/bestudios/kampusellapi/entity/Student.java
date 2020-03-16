@@ -1,10 +1,7 @@
 package com.bestudios.kampusellapi.entity;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -18,7 +15,7 @@ import java.util.List;
                 "username"
         }),
 })
-
+@Data
 @NoArgsConstructor
 public class Student {
 
@@ -42,13 +39,7 @@ public class Student {
             fetch = FetchType.LAZY,
             mappedBy = "student")
     @Null
-    private List<Product> sellingProducts;
+    private List<Product> products;
 
-    @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "student")
-    @Null
-    private List<Product> boughtProducts;
 
 }

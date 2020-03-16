@@ -35,7 +35,7 @@ public class ProductService {
 
     public List<ProductDTO> getAllProjects() {
         log.info("Get all Projects");
-        return productMapper.entityToDtoList(productRepository.findAll());
+        return productMapper.entityToDTOList(productRepository.findAll());
     }
 
     public ProductDTO save(ProductDTO productDTO) {
@@ -60,6 +60,6 @@ public class ProductService {
         product.setStudent(student);
 
 
-        return productMapper.entityToDto(productRepository.save(product));
+        return productMapper.entityToDTO(productRepository.save(product));
     }
 }

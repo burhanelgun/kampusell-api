@@ -1,5 +1,6 @@
 package com.bestudios.kampusellapi.entity;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -13,7 +14,7 @@ import java.util.List;
                 "name"
         }),
 })
-
+@Data
 @NoArgsConstructor
 public class Category {
 

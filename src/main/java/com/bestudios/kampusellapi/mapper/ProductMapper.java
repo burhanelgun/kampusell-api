@@ -1,7 +1,9 @@
 package com.bestudios.kampusellapi.mapper;
 
+import com.bestudios.kampusellapi.entity.Category;
 import com.bestudios.kampusellapi.entity.Product;
 import dto.ProductDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,24 +11,33 @@ import java.util.List;
 
 @Service
 public class ProductMapper {
-    public ProductDTO entityToDto(Product product) {
+
+    @Autowired
+    CategoryMapper categoryMapper;
+
+    @Autowired
+    StudentMapper studentMapper;
+
+    public ProductDTO entityToDTO(Product product) {
         ProductDTO productDTO = new ProductDTO();
 
         productDTO.setId(product.getId());
         productDTO.setName(product.getName());
         productDTO.setDescription(product.getDescription());
         productDTO.setPrice(product.getPrice());
-        //need to add the other product details
+        productDTO.setCategory(categoryMapper.entityToDTO(product.getCategory()));
+        productDTO.setStudent(studentMapper.entityToDTO(product.getStudent()));
+
 
         return productDTO;
     }
 
-    public List<ProductDTO> entityToDtoList(List<Product> products) {
-        List<ProductDTO> projectsDto = new ArrayList<ProductDTO>();
+    public List<ProductDTO> entityToDTOList(List<Product> products) {
+        List<ProductDTO> productsDTO = new ArrayList<ProductDTO>();
         for (Product product : products) {
-            projectsDto.add(entityToDto(product));
+            productsDTO.add(entityToDTO(product));
         }
-        return projectsDto;
+        return productsDTO;
     }
 
 }
