@@ -30,13 +30,12 @@ public class ProductController {
 
 
     @GetMapping
-    public List<ProductDTO> getAllProjects() {
+    public List<ProductDTO> getAllProducts() {
         return productService.getAllProjects();
     }
 
     @PostMapping
-    public ResponseEntity createProject(@RequestBody ProductDTO productDTO) {
-
+    public ResponseEntity createProduct(@RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productService.save(productDTO));
     }
 
