@@ -50,16 +50,15 @@ public class ProductService {
         product.setImagePaths(new ArrayList<>());
 
         Category category = new Category();
-        category.setId(productDTO.getId());
-        category.setName(productDTO.getName());
-        categoryRepository.save(category);
+        category.setId(productDTO.getCategory().getId());
+        category.setName(productDTO.getCategory().getName());
         product.setCategory(category);
 
         Student student = new Student();
         studentRepository.save(student);
         product.setStudent(student);
+        productRepository.save(product);
 
-
-        return productMapper.entityToDTO(productRepository.save(product));
+        return productMapper.entityToDTO(product);
     }
 }
