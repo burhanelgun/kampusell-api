@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -37,6 +38,12 @@ public class ProductController {
     @PostMapping
     public ResponseEntity createProduct(@RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productService.save(productDTO));
+    }
+
+
+    @PostMapping("/s")
+    public void createProduct2(@RequestBody Map map) {
+        System.out.println("hello");
     }
 
 
