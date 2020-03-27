@@ -42,8 +42,8 @@ public class ProductController {
 
 
     @PostMapping("/s")
-    public void createProduct2(@RequestBody Map map) {
-        System.out.println("hello");
+    public ResponseEntity createProduct2(@RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok(productService.save(productDTO));
     }
 
 
