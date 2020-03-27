@@ -57,6 +57,8 @@ public class ProductService {
         Student student = new Student();
         studentRepository.save(student);
         product.setStudent(student);
+
+
         productRepository.save(product);
 
         return productMapper.entityToDTO(product);
