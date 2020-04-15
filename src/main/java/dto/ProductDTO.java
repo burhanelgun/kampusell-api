@@ -25,5 +25,5 @@ public class ProductDTO {
 
     private CategoryDTO category;
 
-    private String imagePath;
+    private List<String> imagePaths;
 }

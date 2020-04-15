@@ -47,7 +47,7 @@ public class ProductService {
         product.setDescription(productDTO.getDescription());
         product.setId(productDTO.getId());
 
-        product.setImagePaths(new ArrayList<>());
+        product.setImagePaths(productDTO.getImagePaths());
 
         Category category = new Category();
         category.setId(productDTO.getCategory().getId());
