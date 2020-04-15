@@ -27,6 +27,7 @@ public class ProductMapper {
         productDTO.setPrice(product.getPrice());
         productDTO.setCategory(categoryMapper.entityToDTO(product.getCategory()));
         productDTO.setStudent(studentMapper.entityToDTO(product.getStudent()));
+        productDTO.setImagePaths(product.getImagePaths());
 
 
         return productDTO;
