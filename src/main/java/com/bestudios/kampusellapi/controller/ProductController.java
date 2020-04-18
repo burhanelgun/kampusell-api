@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -32,7 +33,14 @@ public class ProductController {
 
     @GetMapping
     public List<ProductDTO> getAllProducts() {
-        return productService.getAllProjects();
+        log.info("helloooooo1");
+        return productService.getAllProducts();
+    }
+
+    @GetMapping("/categoryId={categoryId}")
+    public List<ProductDTO> getProductsByCategoryId(@PathVariable("categoryId") Optional<String> categoryId) {
+        log.info("helloooooo2");
+        return productService.getProductsByCategoryId(categoryId);
     }
 
     @PostMapping

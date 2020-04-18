@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -33,7 +34,7 @@ public class ProductService {
     @Autowired
     ProductMapper productMapper;
 
-    public List<ProductDTO> getAllProjects() {
+    public List<ProductDTO> getAllProducts() {
         log.info("Get all Projects");
         return productMapper.entityToDTOList(productRepository.findAll());
     }
@@ -62,5 +63,18 @@ public class ProductService {
         productRepository.save(product);
 
         return productMapper.entityToDTO(product);
+    }
+
+    public List<ProductDTO> getProductsByCategoryId(Optional<String> categoryIdOpt) {
+
+        if(categoryIdOpt.isPresent()){
+            Long categoryId = Long.parseLong(categoryIdOpt.get());
+            List<Product> products = productRepository.findAllByCategoryId(categoryId);
+            return productMapper.entityToDTOList(products);
+
+        } else{
+
+        }
+        return null;
     }
 }
