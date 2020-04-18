@@ -43,6 +43,11 @@ public class ProductController {
         return productService.getProductsByCategoryId(categoryId);
     }
 
+    @GetMapping("/searchText={searchText}")
+    public List<ProductDTO> getSearchTextProducts(@PathVariable("searchText") Optional<String> searchText) {
+        return productService.getProductsBySearchText(searchText);
+    }
+
     @PostMapping
     public ResponseEntity createProduct(@RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productService.save(productDTO));

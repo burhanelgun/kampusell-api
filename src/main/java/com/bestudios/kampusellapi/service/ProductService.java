@@ -73,8 +73,20 @@ public class ProductService {
             return productMapper.entityToDTOList(products);
 
         } else{
+            return null;
 
         }
-        return null;
+    }
+
+    public List<ProductDTO> getProductsBySearchText(Optional<String> searchTextOpt) {
+        if(searchTextOpt.isPresent()){
+            String searchText = searchTextOpt.get();
+            List<Product> products = productRepository.findAllProductsBySearchText(searchText);
+            return productMapper.entityToDTOList(products);
+
+        } else{
+            return null;
+
+        }
     }
 }
