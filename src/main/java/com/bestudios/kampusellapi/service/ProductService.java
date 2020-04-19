@@ -4,6 +4,7 @@ import com.bestudios.kampusellapi.entity.Category;
 import com.bestudios.kampusellapi.entity.Product;
 import com.bestudios.kampusellapi.entity.Student;
 import com.bestudios.kampusellapi.mapper.ProductMapper;
+import com.bestudios.kampusellapi.model.ProductFilter;
 import com.bestudios.kampusellapi.repository.CategoryRepository;
 import com.bestudios.kampusellapi.repository.ProductRepository;
 import com.bestudios.kampusellapi.repository.StudentRepository;
@@ -82,6 +83,18 @@ public class ProductService {
         if(searchTextOpt.isPresent()){
             String searchText = searchTextOpt.get();
             List<Product> products = productRepository.findAllProductsBySearchText(searchText);
+            return productMapper.entityToDTOList(products);
+
+        } else{
+            return null;
+
+        }
+    }
+
+    public List<ProductDTO> getFilteredProducts(Optional<ProductFilter> productFilterOpt) {
+        if(productFilterOpt.isPresent()){
+            ProductFilter productFilter = productFilterOpt.get();
+            List<Product> products = productRepository.findAllProductByFilter(productFilter);
             return productMapper.entityToDTOList(products);
 
         } else{

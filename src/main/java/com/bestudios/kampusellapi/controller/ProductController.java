@@ -3,6 +3,7 @@ package com.bestudios.kampusellapi.controller;
 import com.bestudios.kampusellapi.entity.Category;
 import com.bestudios.kampusellapi.entity.Product;
 import com.bestudios.kampusellapi.entity.Student;
+import com.bestudios.kampusellapi.model.ProductFilter;
 import com.bestudios.kampusellapi.service.ProductService;
 import dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,11 @@ public class ProductController {
     @PostMapping("/s")
     public ResponseEntity createProduct2(@RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productService.save(productDTO));
+    }
+
+    @PostMapping("/filter")
+    public List<ProductDTO> createProduct2(@RequestBody Optional<ProductFilter> productFilter) {
+        return productService.getFilteredProducts(productFilter);
     }
 
 
