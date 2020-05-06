@@ -1,9 +1,6 @@
-package dto;
+package com.bestudios.kampusellapi.dto;
 
-import com.bestudios.kampusellapi.entity.Product;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class CategoryDTO {

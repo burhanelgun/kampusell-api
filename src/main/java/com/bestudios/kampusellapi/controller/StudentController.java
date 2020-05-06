@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api/auth")
 @Slf4j
 public class StudentController {
     @Autowired
     StudentService studentService;
+
+
+    //continue RestAPIs Controller
 }

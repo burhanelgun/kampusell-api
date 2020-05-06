@@ -1,13 +1,7 @@
-package dto;
+package com.bestudios.kampusellapi.dto;
 
-import com.bestudios.kampusellapi.entity.Category;
-import com.bestudios.kampusellapi.entity.Student;
 import lombok.Data;
-import lombok.ToString;
-import org.springframework.lang.Nullable;
 
-import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.util.List;
 
 @Data

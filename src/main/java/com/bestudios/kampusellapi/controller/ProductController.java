@@ -1,21 +1,14 @@
 package com.bestudios.kampusellapi.controller;
 
-import com.bestudios.kampusellapi.entity.Category;
-import com.bestudios.kampusellapi.entity.Product;
-import com.bestudios.kampusellapi.entity.Student;
 import com.bestudios.kampusellapi.model.ProductFilter;
 import com.bestudios.kampusellapi.service.ProductService;
-import dto.ProductDTO;
+import com.bestudios.kampusellapi.dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)

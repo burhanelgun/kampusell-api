@@ -7,13 +7,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "student", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "username"
         }),
+        @UniqueConstraint(columnNames = {
+                "email"
+        })
 })
 @Data
 @NoArgsConstructor
@@ -32,6 +37,13 @@ public class Student {
 
     @Column(name = "password", nullable = true, length = 255)
     private String password;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "student_roles",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
 
     @ToString.Exclude

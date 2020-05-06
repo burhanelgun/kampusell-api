@@ -1,7 +1,7 @@
 package com.bestudios.kampusellapi.mapper;
 
 import com.bestudios.kampusellapi.entity.Category;
-import dto.CategoryDTO;
+import com.bestudios.kampusellapi.dto.CategoryDTO;
 import org.springframework.stereotype.Service;
 
 @Service

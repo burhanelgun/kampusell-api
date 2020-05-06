@@ -1,10 +1,7 @@
 package com.bestudios.kampusellapi.mapper;
 
-import com.bestudios.kampusellapi.entity.Category;
 import com.bestudios.kampusellapi.entity.Student;
-import dto.CategoryDTO;
-import dto.ProductDTO;
-import dto.StudentDTO;
+import com.bestudios.kampusellapi.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
