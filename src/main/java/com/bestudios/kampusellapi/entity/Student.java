@@ -20,29 +20,41 @@ import java.util.Set;
                 "email"
         })
 })
-@Data
 @NoArgsConstructor
 public class Student {
-
-    @Column(name = "ID")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
+    @Getter
+    @Setter
     private Long id;
 
-    @Column(name = "username", nullable = true, length = 255)
+    @NotBlank
+    @Size(min = 3, max = 50)
+    @Getter
+    @Setter
     private String username;
 
+    @NotBlank
+    @Size(min = 6, max = 100)
+    @Getter
+    @Setter
+    private String password;
+
+    @Getter
+    @Setter
+    @NotBlank
     @Column(name = "email", nullable = true, length = 255)
     private String email;
 
-    @Column(name = "password", nullable = true, length = 255)
-    private String password;
-
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "student_roles",
-            joinColumns = @JoinColumn(name = "student_id"),
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Getter
+    @Setter
     private Set<Role> roles = new HashSet<>();
 
 
@@ -52,6 +64,14 @@ public class Student {
             mappedBy = "student")
     @Null
     private List<Product> products;
+
+
+    public Student(String username,String email, String password) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+
+    }
 
 
 }
