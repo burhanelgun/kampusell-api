@@ -11,6 +11,8 @@ import com.bestudios.kampusellapi.repository.StudentRepository;
 import com.bestudios.kampusellapi.dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,9 +57,11 @@ public class ProductService {
         category.setName(productDTO.getCategory().getName());
         product.setCategory(category);
 
-        Student student = new Student();
-        studentRepository.save(student);
-        product.setStudent(student);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        String username = userDetails.getUsername();
+        Optional<Student> student = studentRepository.findByUsername(username);
+        product.setStudent(student.get());
 
 
         productRepository.save(product);
