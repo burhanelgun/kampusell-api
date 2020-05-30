@@ -52,9 +52,7 @@ public class ProductService {
 
         product.setImagePaths(productDTO.getImagePaths());
 
-        Category category = new Category();
-        category.setId(productDTO.getCategory().getId());
-        category.setName(productDTO.getCategory().getName());
+        Category category = categoryRepository.findByName(productDTO.getCategory().getName());
         product.setCategory(category);
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
@@ -69,11 +67,11 @@ public class ProductService {
         return productMapper.entityToDTO(product);
     }
 
-    public List<ProductDTO> getProductsByCategoryId(Optional<String> categoryIdOpt) {
+    public List<ProductDTO> getProductsByCategoryName(Optional<String> categoryNameOpt) {
 
-        if(categoryIdOpt.isPresent()){
-            Long categoryId = Long.parseLong(categoryIdOpt.get());
-            List<Product> products = productRepository.findAllByCategoryId(categoryId);
+        if(categoryNameOpt.isPresent()){
+            String categoryName =categoryNameOpt.get();
+            List<Product> products = productRepository.findAllByCategoryName(categoryName);
             return productMapper.entityToDTOList(products);
 
         } else{

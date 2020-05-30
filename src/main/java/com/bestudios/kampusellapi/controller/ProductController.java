@@ -31,10 +31,10 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/categoryId={categoryId}")
-    public List<ProductDTO> getProductsByCategoryId(@PathVariable("categoryId") Optional<String> categoryId) {
+    @GetMapping("/categoryName={categoryName}")
+    public List<ProductDTO> getProductsByCategoryName(@PathVariable("categoryName") Optional<String> categoryName) {
         log.info("helloooooo2");
-        return productService.getProductsByCategoryId(categoryId);
+        return productService.getProductsByCategoryName(categoryName);
     }
 
     @GetMapping("/searchText={searchText}")
