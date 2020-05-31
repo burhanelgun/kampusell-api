@@ -100,10 +100,7 @@ public class AuthService {
     }
 
 
-    public ResponseEntity<?> deleteUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
-        String username = userDetails.getUsername();
+    public ResponseEntity<?> deleteUser(String username) {
         Optional<Student> student = userDAO.findByUsername(username);
         userDAO.delete(student.get());
         return new ResponseEntity<>(new ResponseMessage("User deleted successfully!"), HttpStatus.OK);

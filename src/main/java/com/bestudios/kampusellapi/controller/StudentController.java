@@ -1,5 +1,6 @@
 package com.bestudios.kampusellapi.controller;
 
+import com.bestudios.kampusellapi.dto.StudentDTO;
 import com.bestudios.kampusellapi.entity.Role;
 import com.bestudios.kampusellapi.entity.Student;
 import com.bestudios.kampusellapi.model.*;
@@ -44,7 +45,7 @@ public class StudentController {
     }
 
     @PostMapping("/deleteUser")
-    public ResponseEntity<?> deleteUser() {
-        return authService.deleteUser();
+    public ResponseEntity<?> deleteUser(@Valid @RequestBody SignUpForm signUpForm) {
+        return authService.deleteUser(signUpForm.getUsername());
     }
 }
