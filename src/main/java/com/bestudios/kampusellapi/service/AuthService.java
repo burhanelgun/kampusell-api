@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -99,4 +100,13 @@ public class AuthService {
     }
 
 
+    public ResponseEntity<?> deleteUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        String username = userDetails.getUsername();
+        Optional<Student> student = userDAO.findByUsername(username);
+        userDAO.delete(student.get());
+        return new ResponseEntity<>(new ResponseMessage("User deleted successfully!"), HttpStatus.OK);
+
+    }
 }
