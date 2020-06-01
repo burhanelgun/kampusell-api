@@ -58,6 +58,15 @@ public class Student {
     private Set<Role> roles = new HashSet<>();
 
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_activation_code",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "activation_code_id"))
+    @Getter
+    @Setter
+    private ActivationCode activationCode;
+
+
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,

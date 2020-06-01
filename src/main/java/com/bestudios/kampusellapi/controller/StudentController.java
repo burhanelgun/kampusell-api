@@ -48,4 +48,5 @@ public class StudentController {
     public ResponseEntity<?> deleteUser(@Valid @RequestBody SignUpForm signUpForm) {
         return authService.deleteUser(signUpForm.getUsername());
     }
+
 }

@@ -55,6 +55,7 @@ public class ProductService {
         Category category = categoryRepository.findByName(productDTO.getCategory().getName());
         product.setCategory(category);
 
+        //don't do this way, get username and find user by username
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
         String username = userDetails.getUsername();

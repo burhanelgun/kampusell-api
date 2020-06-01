@@ -1,8 +1,10 @@
 package com.bestudios.kampusellapi.service;
 
+import com.bestudios.kampusellapi.entity.ActivationCode;
 import com.bestudios.kampusellapi.entity.Role;
 import com.bestudios.kampusellapi.entity.Student;
 import com.bestudios.kampusellapi.model.*;
+import com.bestudios.kampusellapi.repository.ActivationCodeRepository;
 import com.bestudios.kampusellapi.repository.RoleRepository;
 import com.bestudios.kampusellapi.repository.StudentRepository;
 import com.bestudios.kampusellapi.security.jwt.JwtProvider;
@@ -33,6 +35,11 @@ public class AuthService {
     @Autowired
     private StudentRepository userDAO;
 
+
+    @Autowired
+    private ActivationCodeRepository activationCodeRepository;
+
+
     @Autowired
     private RoleRepository roleRepository;
 
@@ -41,6 +48,10 @@ public class AuthService {
 
     @Autowired
     private JwtProvider jwtProvider;
+
+    @Autowired
+    EmailService emailService;
+
 
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInForm loginRequest) {
 
@@ -93,10 +104,20 @@ public class AuthService {
         });
 
         user.setRoles(roles);
+
+
+
+        ActivationCode activationCode = new ActivationCode();
+
+
+        activationCodeRepository.save(activationCode);
+        user.setActivationCode(activationCode);
         userDAO.save(user);
+        emailService.sendMail(user.getEmail(),"Kampusell Aktivasyon Kodu",activationCode.getActivationCode());
+
 
         log.info("User is Signed up with SignUpForm:" + signUpRequest + " with Roles:" + roles);
-        return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage(activationCode.getActivationCode().toString()), HttpStatus.OK);
     }
 
 
@@ -106,4 +127,6 @@ public class AuthService {
         return new ResponseEntity<>(new ResponseMessage("User deleted successfully!"), HttpStatus.OK);
 
     }
+
+
 }
