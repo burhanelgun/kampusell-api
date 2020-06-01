@@ -121,9 +121,11 @@ public class AuthService {
     }
 
 
-    public ResponseEntity<?> deleteUser(String username) {
-        Optional<Student> student = userDAO.findByUsername(username);
+    public ResponseEntity<?> deleteUser(SignUpForm signUpForm) {
+        Optional<Student> student = userDAO.findByUsername(signUpForm.getUsername());
         userDAO.delete(student.get());
+        Optional<ActivationCode> activationCodeOpt = activationCodeRepository.findByActivationCode(signUpForm.getActivationCode().getActivationCode());
+        activationCodeRepository.delete(activationCodeOpt.get());
         return new ResponseEntity<>(new ResponseMessage("User deleted successfully!"), HttpStatus.OK);
 
     }

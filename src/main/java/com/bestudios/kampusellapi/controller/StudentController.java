@@ -46,7 +46,9 @@ public class StudentController {
 
     @PostMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@Valid @RequestBody SignUpForm signUpForm) {
-        return authService.deleteUser(signUpForm.getUsername());
+        return authService.deleteUser(signUpForm);
     }
+
+
 
 }

@@ -1,6 +1,8 @@
 package com.bestudios.kampusellapi.model;
 
+import com.bestudios.kampusellapi.entity.ActivationCode;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -25,5 +27,8 @@ public class SignUpForm {
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
+
+    @Nullable
+    private ActivationCode activationCode;
 
 }
