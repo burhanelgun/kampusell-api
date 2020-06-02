@@ -57,6 +57,14 @@ public class Student {
     @Setter
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_university",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "university_id"))
+    @Getter
+    @Setter
+    private University university;
+
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "user_activation_code",

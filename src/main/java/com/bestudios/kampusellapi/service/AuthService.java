@@ -3,10 +3,12 @@ package com.bestudios.kampusellapi.service;
 import com.bestudios.kampusellapi.entity.ActivationCode;
 import com.bestudios.kampusellapi.entity.Role;
 import com.bestudios.kampusellapi.entity.Student;
+import com.bestudios.kampusellapi.entity.University;
 import com.bestudios.kampusellapi.model.*;
 import com.bestudios.kampusellapi.repository.ActivationCodeRepository;
 import com.bestudios.kampusellapi.repository.RoleRepository;
 import com.bestudios.kampusellapi.repository.StudentRepository;
+import com.bestudios.kampusellapi.repository.UniversityRepository;
 import com.bestudios.kampusellapi.security.jwt.JwtProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,10 @@ public class AuthService {
 
     @Autowired
     private JwtProvider jwtProvider;
+
+    @Autowired
+    private UniversityRepository universityRepository;
+
 
     @Autowired
     EmailService emailService;
@@ -108,11 +114,17 @@ public class AuthService {
 
 
         ActivationCode activationCode = new ActivationCode();
-
-
         activationCodeRepository.save(activationCode);
         user.setActivationCode(activationCode);
+
+
+        Optional<University> university = universityRepository.findById(signUpRequest.getUniversity().getId());
+        user.setUniversity(university.get());
+
+
+
         userDAO.save(user);
+
         emailService.sendMail(user.getEmail(),"Kampusell Aktivasyon Kodu",activationCode.getActivationCode());
 
 
@@ -129,6 +141,5 @@ public class AuthService {
         return new ResponseEntity<>(new ResponseMessage("User deleted successfully!"), HttpStatus.OK);
 
     }
-
 
 }

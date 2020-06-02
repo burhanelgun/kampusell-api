@@ -1,6 +1,7 @@
 package com.bestudios.kampusellapi.model;
 
 import com.bestudios.kampusellapi.entity.ActivationCode;
+import com.bestudios.kampusellapi.entity.University;
 import lombok.Data;
 import org.springframework.lang.Nullable;
 
@@ -30,5 +31,7 @@ public class SignUpForm {
 
     @Nullable
     private ActivationCode activationCode;
+
+    private University university;
 
 }

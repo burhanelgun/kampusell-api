@@ -1,8 +1,6 @@
 package com.bestudios.kampusellapi.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -32,6 +30,7 @@ public class Product {
 
     @Column(name = "price", nullable = true, length = 255)
     private double price;
+
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
