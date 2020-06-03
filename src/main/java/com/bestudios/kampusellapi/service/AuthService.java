@@ -59,7 +59,7 @@ public class AuthService {
     EmailService emailService;
 
 
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInForm loginRequest) {
+    public ResponseEntity<?> authenticateStudent(@Valid @RequestBody SignInForm loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -69,11 +69,11 @@ public class AuthService {
         String jwt = jwtProvider.generateJwtToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        log.info("User is Signed in with LoginForm:" + loginRequest);
+        log.info("Student is Signed in with LoginForm:" + loginRequest);
         return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
+    public ResponseEntity<?> registerStudent(@Valid @RequestBody SignUpForm signUpRequest) {
         if (userDAO.existsByUsername(signUpRequest.getUsername())) {
             log.error("Fail -> Username is already taken!");
             return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
@@ -81,8 +81,8 @@ public class AuthService {
         }
 
 
-        // Creating user's account
-        Student user = new Student(signUpRequest.getUsername(),signUpRequest.getEmail(),
+        // Creating student's account
+        Student student = new Student(signUpRequest.getUsername(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
@@ -92,53 +92,50 @@ public class AuthService {
             switch (role) {
                 case "admin":
                     Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Student Role not find."));
                     roles.add(adminRole);
 
                     break;
                 case "pm":
                     Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Student Role not find."));
                     roles.add(pmRole);
 
                     break;
                 default:
                     Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Student Role not find."));
                     roles.add(userRole);
             }
         });
 
-        user.setRoles(roles);
+        student.setRoles(roles);
 
+        Optional<University> university = universityRepository.findById(signUpRequest.getUniversity().getId());
+        student.setUniversity(university.get());
 
 
         ActivationCode activationCode = new ActivationCode();
         activationCodeRepository.save(activationCode);
-        user.setActivationCode(activationCode);
+        student.setActivationCode(activationCode);
 
 
-        Optional<University> university = universityRepository.findById(signUpRequest.getUniversity().getId());
-        user.setUniversity(university.get());
+        userDAO.save(student);
+
+        emailService.sendMail(student.getEmail(), "Kampusell Aktivasyon Kodu", activationCode.getActivationCode());
 
 
-
-        userDAO.save(user);
-
-        emailService.sendMail(user.getEmail(),"Kampusell Aktivasyon Kodu",activationCode.getActivationCode());
-
-
-        log.info("User is Signed up with SignUpForm:" + signUpRequest + " with Roles:" + roles);
+        log.info("Student is Signed up with SignUpForm:" + signUpRequest + " with Roles:" + roles);
         return new ResponseEntity<>(new ResponseMessage(activationCode.getActivationCode().toString()), HttpStatus.OK);
     }
 
 
-    public ResponseEntity<?> deleteUser(SignUpForm signUpForm) {
-        Optional<Student> student = userDAO.findByUsername(signUpForm.getUsername());
-        userDAO.delete(student.get());
+    public ResponseEntity<?> deleteStudent(SignUpForm signUpForm) {
+        Optional<Student> user = userDAO.findByUsername(signUpForm.getUsername());
+        userDAO.delete(user.get());
         Optional<ActivationCode> activationCodeOpt = activationCodeRepository.findByActivationCode(signUpForm.getActivationCode().getActivationCode());
         activationCodeRepository.delete(activationCodeOpt.get());
-        return new ResponseEntity<>(new ResponseMessage("User deleted successfully!"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Student deleted successfully!"), HttpStatus.OK);
 
     }
 

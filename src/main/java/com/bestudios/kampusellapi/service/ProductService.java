@@ -1,5 +1,6 @@
 package com.bestudios.kampusellapi.service;
 
+import com.bestudios.kampusellapi.dto.ProductDTO;
 import com.bestudios.kampusellapi.entity.Category;
 import com.bestudios.kampusellapi.entity.Product;
 import com.bestudios.kampusellapi.entity.Student;
@@ -8,7 +9,6 @@ import com.bestudios.kampusellapi.model.ProductFilter;
 import com.bestudios.kampusellapi.repository.CategoryRepository;
 import com.bestudios.kampusellapi.repository.ProductRepository;
 import com.bestudios.kampusellapi.repository.StudentRepository;
-import com.bestudios.kampusellapi.dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,36 +70,36 @@ public class ProductService {
 
     public List<ProductDTO> getProductsByCategoryName(Optional<String> categoryNameOpt) {
 
-        if(categoryNameOpt.isPresent()){
-            String categoryName =categoryNameOpt.get();
+        if (categoryNameOpt.isPresent()) {
+            String categoryName = categoryNameOpt.get();
             List<Product> products = productRepository.findAllByCategoryName(categoryName);
             return productMapper.entityToDTOList(products);
 
-        } else{
+        } else {
             return null;
 
         }
     }
 
     public List<ProductDTO> getProductsBySearchText(Optional<String> searchTextOpt) {
-        if(searchTextOpt.isPresent()){
+        if (searchTextOpt.isPresent()) {
             String searchText = searchTextOpt.get();
             List<Product> products = productRepository.findAllProductsBySearchText(searchText);
             return productMapper.entityToDTOList(products);
 
-        } else{
+        } else {
             return null;
 
         }
     }
 
     public List<ProductDTO> getFilteredProducts(Optional<ProductFilter> productFilterOpt) {
-        if(productFilterOpt.isPresent()){
+        if (productFilterOpt.isPresent()) {
             ProductFilter productFilter = productFilterOpt.get();
             List<Product> products = productRepository.findAllProductByFilter(productFilter);
             return productMapper.entityToDTOList(products);
 
-        } else{
+        } else {
             return null;
 
         }

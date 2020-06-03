@@ -1,8 +1,6 @@
 package com.bestudios.kampusellapi.controller;
 
 import com.bestudios.kampusellapi.dto.CategoryDTO;
-import com.bestudios.kampusellapi.dto.ProductDTO;
-import com.bestudios.kampusellapi.entity.Category;
 import com.bestudios.kampusellapi.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

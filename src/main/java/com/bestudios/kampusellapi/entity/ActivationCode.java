@@ -1,8 +1,5 @@
 package com.bestudios.kampusellapi.entity;
 
-import com.bestudios.kampusellapi.model.RoleName;
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 
 @Entity
@@ -16,7 +13,7 @@ public class ActivationCode {
     private String activationCode;
 
     public ActivationCode() {
-        int activationCodeSize=6;
+        int activationCodeSize = 6;
         String AlphaNumericString = "0123456789"
                 + "abcdefghijklmnopqrstuvxyz";
 
@@ -26,7 +23,7 @@ public class ActivationCode {
         for (int i = 0; i < activationCodeSize; i++) {
 
             int index
-                    = (int)(AlphaNumericString.length()
+                    = (int) (AlphaNumericString.length()
                     * Math.random());
 
             // add Character one by one in end of sb
@@ -34,7 +31,7 @@ public class ActivationCode {
                     .charAt(index));
         }
 
-        activationCode=sb.toString();
+        activationCode = sb.toString();
     }
 
     public ActivationCode(String activationCode) {

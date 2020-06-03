@@ -1,10 +1,11 @@
 package com.bestudios.kampusellapi.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.util.List;
 
 @Entity
@@ -49,7 +50,6 @@ public class Product {
     @ElementCollection
     @Nullable
     private List<String> imagePaths;
-
 
 
 }

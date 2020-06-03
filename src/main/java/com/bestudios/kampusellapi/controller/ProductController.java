@@ -1,8 +1,8 @@
 package com.bestudios.kampusellapi.controller;
 
+import com.bestudios.kampusellapi.dto.ProductDTO;
 import com.bestudios.kampusellapi.model.ProductFilter;
 import com.bestudios.kampusellapi.service.ProductService;
-import com.bestudios.kampusellapi.dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +19,14 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/hellos")
-    public String test() {
-        return "MERHABALAR";
-    }
-
 
     @GetMapping
     public List<ProductDTO> getAllProducts() {
-        log.info("helloooooo1");
         return productService.getAllProducts();
     }
 
     @GetMapping("/categoryName={categoryName}")
     public List<ProductDTO> getProductsByCategoryName(@PathVariable("categoryName") Optional<String> categoryName) {
-        log.info("helloooooo2");
         return productService.getProductsByCategoryName(categoryName);
     }
 
@@ -57,9 +50,6 @@ public class ProductController {
     public List<ProductDTO> createProduct2(@RequestBody Optional<ProductFilter> productFilter) {
         return productService.getFilteredProducts(productFilter);
     }
-
-
-
 
 
 }

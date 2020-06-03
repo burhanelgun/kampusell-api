@@ -19,7 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllProductsBySearchText(String searchText);
 
     @Query("select p from Product p WHERE p.category.name = :#{#productFilter.category.name} and p.price BETWEEN :#{#productFilter.minPrice} AND :#{#productFilter.maxPrice}")
-    List<Product> findAllProductByFilter(@Param("productFilter")ProductFilter productFilter);
+    List<Product> findAllProductByFilter(@Param("productFilter") ProductFilter productFilter);
 
     List<Product> findAllByCategoryName(String categoryName);
 }

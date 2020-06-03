@@ -1,11 +1,12 @@
 package com.bestudios.kampusellapi.entity;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.List;
@@ -50,40 +51,40 @@ public class Student {
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "student_roles",
+            joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Getter
     @Setter
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_university",
-            joinColumns = @JoinColumn(name = "user_id"),
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "student_university",
+            joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "university_id"))
     @Getter
     @Setter
     private University university;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "student_product",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @Getter
+    @Setter
+    private List<Product> products;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_activation_code",
-            joinColumns = @JoinColumn(name = "user_id"),
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "student_activation_code",
+            joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "activation_code_id"))
     @Getter
     @Setter
     private ActivationCode activationCode;
 
 
-    @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "student")
-    @Null
-    private List<Product> products;
-
-
-    public Student(String username,String email, String password) {
+    public Student(String username, String email, String password) {
         this.username = username;
         this.password = password;
         this.email = email;

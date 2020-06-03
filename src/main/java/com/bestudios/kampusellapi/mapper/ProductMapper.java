@@ -1,7 +1,7 @@
 package com.bestudios.kampusellapi.mapper;
 
-import com.bestudios.kampusellapi.entity.Product;
 import com.bestudios.kampusellapi.dto.ProductDTO;
+import com.bestudios.kampusellapi.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

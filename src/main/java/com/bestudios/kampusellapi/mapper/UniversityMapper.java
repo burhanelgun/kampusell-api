@@ -1,10 +1,6 @@
 package com.bestudios.kampusellapi.mapper;
 
-import com.bestudios.kampusellapi.dto.CategoryDTO;
-import com.bestudios.kampusellapi.dto.ProductDTO;
 import com.bestudios.kampusellapi.dto.UniversityDTO;
-import com.bestudios.kampusellapi.entity.Category;
-import com.bestudios.kampusellapi.entity.Product;
 import com.bestudios.kampusellapi.entity.University;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +10,7 @@ import java.util.List;
 @Service
 public class UniversityMapper {
 
-    public UniversityDTO entityToDTO(University university){
+    public UniversityDTO entityToDTO(University university) {
         UniversityDTO universityDTO = new UniversityDTO();
         universityDTO.setId(university.getId());
         universityDTO.setName(university.getName());
