@@ -20,4 +20,9 @@ public class ProductDTO {
     private CategoryDTO category;
 
     private List<String> imagePaths;
+
+    private List<String> texts;
+
+    private List<String> labels;
+
 }

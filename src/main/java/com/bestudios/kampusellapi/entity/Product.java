@@ -51,5 +51,14 @@ public class Product {
     @Nullable
     private List<String> imagePaths;
 
+    @ToString.Exclude
+    @ElementCollection
+    @Nullable
+    private List<String> texts;
+
+    @ToString.Exclude
+    @ElementCollection
+    @Nullable
+    private List<String> labels;
 
 }

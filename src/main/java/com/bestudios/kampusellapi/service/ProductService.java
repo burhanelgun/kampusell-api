@@ -51,6 +51,8 @@ public class ProductService {
         product.setId(productDTO.getId());
 
         product.setImagePaths(productDTO.getImagePaths());
+        product.setTexts(productDTO.getTexts());
+        product.setLabels(productDTO.getLabels());
 
         Category category = categoryRepository.findByName(productDTO.getCategory().getName());
         product.setCategory(category);
