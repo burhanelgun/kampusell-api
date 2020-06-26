@@ -132,4 +132,17 @@ public class ProductService {
 
         }
     }
+
+    public List<ProductDTO> getProductsByUsername(Optional<String> usernameOpt) {
+        if (usernameOpt.isPresent()) {
+            String username = usernameOpt.get();
+            List<Product> products = productRepository.findAllByStudent_Username(username);
+            return productMapper.entityToDTOList(products);
+
+        } else {
+            return null;
+
+        }
+
+    }
 }

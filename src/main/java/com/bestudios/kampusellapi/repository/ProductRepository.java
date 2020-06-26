@@ -27,4 +27,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllProductByLabel1AndLabel2(String label1,String label2);
 
+    List<Product> findAllByStudent_Username(String username);
+
 }

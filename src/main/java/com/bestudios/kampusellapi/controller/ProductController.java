@@ -57,4 +57,9 @@ public class ProductController {
         return productService.getWithPhoto(photoValue);
     }
 
+    @GetMapping("/username={username}")
+    public List<ProductDTO> getMyProducts(@PathVariable("username") Optional<String> username) {
+        return productService.getProductsByUsername(username);
+    }
+
 }
