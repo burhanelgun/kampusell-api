@@ -1,6 +1,7 @@
 package com.bestudios.kampusellapi.controller;
 
 import com.bestudios.kampusellapi.dto.ProductDTO;
+import com.bestudios.kampusellapi.model.PhotoValue;
 import com.bestudios.kampusellapi.model.ProductFilter;
 import com.bestudios.kampusellapi.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -51,5 +52,9 @@ public class ProductController {
         return productService.getFilteredProducts(productFilter);
     }
 
+    @PostMapping("/findWithPhoto")
+    public List<ProductDTO> findWithPhoto(@RequestBody Optional<PhotoValue> photoValue) {
+        return productService.getWithPhoto(photoValue);
+    }
 
 }

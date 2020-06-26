@@ -5,6 +5,7 @@ import com.bestudios.kampusellapi.entity.Category;
 import com.bestudios.kampusellapi.entity.Product;
 import com.bestudios.kampusellapi.entity.Student;
 import com.bestudios.kampusellapi.mapper.ProductMapper;
+import com.bestudios.kampusellapi.model.PhotoValue;
 import com.bestudios.kampusellapi.model.ProductFilter;
 import com.bestudios.kampusellapi.repository.CategoryRepository;
 import com.bestudios.kampusellapi.repository.ProductRepository;
@@ -52,7 +53,8 @@ public class ProductService {
 
         product.setImagePaths(productDTO.getImagePaths());
         product.setTexts(productDTO.getTexts());
-        product.setLabels(productDTO.getLabels());
+        product.setLabel1(productDTO.getLabel1());
+        product.setLabel2(productDTO.getLabel2());
 
         Category category = categoryRepository.findByName(productDTO.getCategory().getName());
         product.setCategory(category);
@@ -100,6 +102,30 @@ public class ProductService {
             ProductFilter productFilter = productFilterOpt.get();
             List<Product> products = productRepository.findAllProductByFilter(productFilter);
             return productMapper.entityToDTOList(products);
+
+        } else {
+            return null;
+
+        }
+    }
+
+    public List<ProductDTO> getWithPhoto(Optional<PhotoValue> photoValueOpt) {
+        if (photoValueOpt.isPresent()) {
+            PhotoValue photoValue = photoValueOpt.get();
+            if(photoValue.getLabels()!=null){
+                List<Product> products = productRepository.findAllProductByLabel1AndLabel2(photoValue.getLabels().get(0),photoValue.getLabels().get(1));
+                if (products==null){
+                    List<Product> products2 = productRepository.findAllProductByLabel1OrLabel2(photoValue.getLabels().get(0),photoValue.getLabels().get(1));
+                    return productMapper.entityToDTOList(products2);
+                }
+                else{
+                    return productMapper.entityToDTOList(products);
+                }
+            }
+            else{
+                return null;
+            }
+
 
         } else {
             return null;

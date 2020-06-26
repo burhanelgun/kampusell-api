@@ -22,4 +22,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllProductByFilter(@Param("productFilter") ProductFilter productFilter);
 
     List<Product> findAllByCategoryName(String categoryName);
+
+    List<Product> findAllProductByLabel1OrLabel2(String label1,String label2);
+
+    List<Product> findAllProductByLabel1AndLabel2(String label1,String label2);
+
 }

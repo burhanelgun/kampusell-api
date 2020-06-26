@@ -28,7 +28,8 @@ public class ProductMapper {
         productDTO.setStudent(studentMapper.entityToDTO(product.getStudent()));
         productDTO.setImagePaths(product.getImagePaths());
         productDTO.setTexts(product.getTexts());
-        productDTO.setLabels(product.getLabels());
+        productDTO.setLabel1(product.getLabel1());
+        productDTO.setLabel2(product.getLabel2());
 
 
         return productDTO;
