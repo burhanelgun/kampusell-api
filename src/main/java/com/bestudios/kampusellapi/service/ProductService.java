@@ -113,14 +113,14 @@ public class ProductService {
         if (photoValueOpt.isPresent()) {
             PhotoValue photoValue = photoValueOpt.get();
             if(photoValue.getLabels()!=null){
-                List<Product> products = productRepository.findAllProductByLabel1AndLabel2(photoValue.getLabels().get(0),photoValue.getLabels().get(1));
-                if (products==null){
+               // List<Product> products = productRepository.findAllProductByLabel1AndLabel2(photoValue.getLabels().get(0),photoValue.getLabels().get(1));
+               // if (products==null){
                     List<Product> products2 = productRepository.findAllProductByLabel1OrLabel2(photoValue.getLabels().get(0),photoValue.getLabels().get(1));
                     return productMapper.entityToDTOList(products2);
-                }
-                else{
-                    return productMapper.entityToDTOList(products);
-                }
+                //}
+                //else{
+                    //return productMapper.entityToDTOList(products);
+               // }
             }
             else{
                 return null;
