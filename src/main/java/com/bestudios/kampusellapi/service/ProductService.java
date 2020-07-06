@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,8 +54,7 @@ public class ProductService {
 
         product.setImagePaths(productDTO.getImagePaths());
         product.setTexts(productDTO.getTexts());
-        product.setLabel1(productDTO.getLabel1());
-        product.setLabel2(productDTO.getLabel2());
+        product.setLabels(productDTO.getLabels());
 
         Category category = categoryRepository.findByName(productDTO.getCategory().getName());
         product.setCategory(category);
@@ -110,17 +110,40 @@ public class ProductService {
     }
 
     public List<ProductDTO> getWithPhoto(Optional<PhotoValue> photoValueOpt) {
+        List<Product> similarProducts = new ArrayList<>();
+        int sameCounter=0;
         if (photoValueOpt.isPresent()) {
             PhotoValue photoValue = photoValueOpt.get();
             if(photoValue.getLabels()!=null){
-               // List<Product> products = productRepository.findAllProductByLabel1AndLabel2(photoValue.getLabels().get(0),photoValue.getLabels().get(1));
-               // if (products==null){
-                    List<Product> products2 = productRepository.findAllProductByLabel1OrLabel2(photoValue.getLabels().get(0),photoValue.getLabels().get(1));
-                    return productMapper.entityToDTOList(products2);
-                //}
-                //else{
-                    //return productMapper.entityToDTOList(products);
-               // }
+
+                List<Product> products = productRepository.findAll();
+
+
+
+                for(Product p:products){
+                    for (String label:photoValue.getLabels()){
+                        if(p.getLabels().contains(label)){
+                            sameCounter++;
+                        }
+                    }
+                    int totalSize = photoValue.getLabels().size()+p.getLabels().size();
+                    int distinctCounter = totalSize-sameCounter;
+
+                    int similarityFactor = 100*sameCounter/distinctCounter;
+
+                    if(similarityFactor>=25){
+                        similarProducts.add(p);
+                    }
+                    sameCounter=0;
+
+                }
+
+
+
+
+
+                return productMapper.entityToDTOList(similarProducts);
+
             }
             else{
                 return null;

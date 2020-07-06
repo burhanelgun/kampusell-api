@@ -56,10 +56,9 @@ public class Product {
     @Nullable
     private List<String> texts;
 
-    @Column(name = "label1", nullable = true, length = 255)
-    private String label1;
-
-    @Column(name = "label2", nullable = true, length = 255)
-    private String label2;
+    @ToString.Exclude
+    @ElementCollection
+    @Nullable
+    private List<String> labels;
 
 }

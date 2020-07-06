@@ -23,8 +23,6 @@ public class ProductDTO {
 
     private List<String> texts;
 
-    private String label1;
-
-    private String label2;
+    private List<String> labels;
 
 }
