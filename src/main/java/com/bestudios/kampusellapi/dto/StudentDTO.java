@@ -6,4 +6,7 @@ import lombok.Data;
 public class StudentDTO {
     Long id;
     String username;
+    String email;
+    String universityName;
+
 }

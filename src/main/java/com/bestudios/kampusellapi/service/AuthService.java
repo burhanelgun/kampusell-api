@@ -1,5 +1,6 @@
 package com.bestudios.kampusellapi.service;
 
+import com.bestudios.kampusellapi.dto.StudentDTO;
 import com.bestudios.kampusellapi.entity.ActivationCode;
 import com.bestudios.kampusellapi.entity.Role;
 import com.bestudios.kampusellapi.entity.Student;
@@ -143,16 +144,16 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<SignUpForm> getUserInfos() {
+    public ResponseEntity<StudentDTO> getUserInfos() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
         String username = userDetails.getUsername();
         Optional<Student> student = studentRepository.findByUsername(username);
         Student student1 = student.get();
-        SignUpForm signUpForm = new SignUpForm();
-        signUpForm.setEmail(student1.getEmail());
-        signUpForm.setUsername(student1.getUsername());
-        signUpForm.setUniversity(student1.getUniversity());
-        return new ResponseEntity<SignUpForm>(signUpForm, HttpStatus.OK);
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setEmail(student1.getEmail());
+        studentDTO.setUsername(student1.getUsername());
+        studentDTO.setUniversityName(student1.getUniversity().getName());
+        return new ResponseEntity<StudentDTO>(studentDTO, HttpStatus.OK);
     }
 }

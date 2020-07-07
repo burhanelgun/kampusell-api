@@ -1,5 +1,6 @@
 package com.bestudios.kampusellapi.controller;
 
+import com.bestudios.kampusellapi.dto.StudentDTO;
 import com.bestudios.kampusellapi.model.SignInForm;
 import com.bestudios.kampusellapi.model.SignUpForm;
 import com.bestudios.kampusellapi.service.AuthService;
@@ -35,7 +36,7 @@ public class StudentController {
     }
 
     @GetMapping("/userInfos")
-    public ResponseEntity<SignUpForm> getUserInfos() {
+    public ResponseEntity<StudentDTO> getUserInfos() {
         return authService.getUserInfos();
     }
 
