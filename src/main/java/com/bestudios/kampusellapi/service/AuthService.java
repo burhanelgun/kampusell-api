@@ -45,6 +45,10 @@ public class AuthService {
     @Autowired
     private RoleRepository roleRepository;
 
+
+    @Autowired
+    private StudentRepository studentRepository;
+
     @Autowired
     private PasswordEncoder encoder;
 
@@ -139,4 +143,16 @@ public class AuthService {
 
     }
 
+    public ResponseEntity<SignUpForm> getUserInfos() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        String username = userDetails.getUsername();
+        Optional<Student> student = studentRepository.findByUsername(username);
+        Student student1 = student.get();
+        SignUpForm signUpForm = new SignUpForm();
+        signUpForm.setEmail(student1.getEmail());
+        signUpForm.setUsername(student1.getUsername());
+        signUpForm.setUniversity(student1.getUniversity());
+        return new ResponseEntity<SignUpForm>(signUpForm, HttpStatus.OK);
+    }
 }

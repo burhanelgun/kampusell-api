@@ -34,5 +34,9 @@ public class StudentController {
         return authService.deleteStudent(signUpForm);
     }
 
+    @GetMapping("/userInfos")
+    public ResponseEntity<SignUpForm> getUserInfos() {
+        return authService.getUserInfos();
+    }
 
 }
