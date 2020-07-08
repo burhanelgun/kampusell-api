@@ -12,6 +12,9 @@ import com.bestudios.kampusellapi.repository.ProductRepository;
 import com.bestudios.kampusellapi.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -168,4 +171,16 @@ public class ProductService {
         }
 
     }
+
+
+
+    public List<ProductDTO> getAllProductsPage(Optional<Integer> begin, Optional<Integer> end) {
+        Integer beginAct =  begin.get();
+        Integer endAct =  end.get();
+        List<Product> products = productRepository.findAllPage(PageRequest.of(beginAct, endAct,Sort.by("id").descending()));
+        return productMapper.entityToDTOList(products);
+
+    }
+
+
 }

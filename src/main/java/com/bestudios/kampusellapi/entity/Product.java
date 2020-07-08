@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Product {
 
-    @Column(name = "ID")
+    @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
